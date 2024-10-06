@@ -1,15 +1,12 @@
-import { useRef } from 'react'
-import { Mesh } from 'three'
-import { useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import { useControls } from 'leva'
-import {blue, orange} from './colors'
+import {Suspense} from 'react'
+import {OrbitControls} from '@react-three/drei'
+import {useControls} from 'leva'
+import {blue} from './colors'
 
-import { Board } from './Board'
+import {Board} from './Board'
+import {Thing} from './Thing'
 
 export default function Game() {
-  const sphere = useRef()
-
   const { position, visible, color } = useControls({
     position: { x: 2, y: 0, z: 0 },
     visible: true,
@@ -21,11 +18,11 @@ export default function Game() {
       <OrbitControls
         maxPolarAngle={Math.PI / 2}
       />
-      <ambientLight />
+      <ambientLight intensity={.9} />
       <directionalLight position={[3, 4, 5]} />
+      {/*<fog attach='fog' args={['#191920', 0, 55]} />*/}
 
       <mesh
-        ref={sphere}
         position={[position.x, position.y, position.z]}
         visible={visible}
       >
@@ -34,20 +31,9 @@ export default function Game() {
       </mesh>
 
       <Board />
-      <Thing position-y={1} />
+      <Suspense fallback={null}>
+        <Thing position-y={1} />
+      </Suspense>
     </>
-  )
-}
-
-function Thing(props) {
-  const ref = useRef<Mesh>(null!)
-  useFrame(() => {
-    ref.current.rotation.x = ref.current.rotation.y += 0.01
-  })
-  return (
-    <mesh ref={ref} {...props}>
-      <boxGeometry />
-      <meshToonMaterial color={orange[900]} />
-    </mesh>
   )
 }
