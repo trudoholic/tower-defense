@@ -1,6 +1,6 @@
 import {green} from "./colors"
 
-export function Floor() {
+export function Board() {
   return (
     <mesh scale={[8, 8, 8]} rotation-x={-Math.PI / 2}>
       <planeGeometry />

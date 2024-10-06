@@ -5,9 +5,9 @@ import { OrbitControls } from '@react-three/drei'
 import { useControls } from 'leva'
 import {blue, orange} from './colors'
 
-import { Floor } from './Floor'
+import { Board } from './Board'
 
-export default function Experience() {
+export default function Game() {
   const sphere = useRef()
 
   const { position, visible, color } = useControls({
@@ -33,7 +33,7 @@ export default function Experience() {
         <sphereGeometry args={[1, 32, 32]} />
       </mesh>
 
-      <Floor />
+      <Board />
       <Thing position-y={1} />
     </>
   )

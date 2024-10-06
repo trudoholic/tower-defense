@@ -2,7 +2,7 @@ import useGame from "../hooks/useGame"
 
 import { CSSProperties } from "react"
 import { Canvas } from '@react-three/fiber'
-import Experience from './Experience'
+import Game from './Game'
 
 const Main = () => {
   const {
@@ -19,7 +19,7 @@ const Main = () => {
     fov: 45,
     near: 0.1,
     far: 200,
-    position: [8, 8, 8],
+    position: [0, 12, 0],
   }
 
   const canvasStyle = {
@@ -39,7 +39,7 @@ const Main = () => {
         {/*<color attach="background" args={['blue']} />*/}
         <axesHelper args={[5]} />
         {/*<gridHelper args={[16, 16, 0x999999, 0x333333]} />*/}
-        <Experience />
+        <Game />
       </Canvas>
 
       <div style={divStyle}>
