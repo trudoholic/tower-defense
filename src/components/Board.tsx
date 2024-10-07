@@ -7,6 +7,8 @@ import {green, orange} from "./colors"
 const range = n => [...Array(n).keys()]
 const size = { x: 11, y: 11} as const
 const offset = { x: (size.x - 1) * .5, y: (size.y - 1) * .5} as const
+// const offset = { x: 0, y: 0} as const
+const RC = n => [Math.floor(n / size.x), n % size.x]
 
 export function Board() {
   return (
@@ -27,7 +29,13 @@ function Tiles() {
   const texture = useLoader(THREE.TextureLoader as any, './assets/img/arrow.png')
 
   return (
-    <Instances range={size.x * size.y}>
+    <Instances
+      range={size.x * size.y}
+      onClick={(e) => {
+        const [row, col] = RC(e.instanceId)
+        console.log("row:", row, "col:", col)
+      }}
+    >
       <planeGeometry />
       <meshBasicMaterial
         color={orange[300]}
