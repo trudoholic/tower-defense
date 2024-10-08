@@ -3,15 +3,14 @@ import * as THREE from "three"
 import {useLoader} from "@react-three/fiber"
 import {Instances, Instance} from "@react-three/drei"
 import {green, orange} from "./colors"
-import {print} from "./pathfinding"
 
-const range = n => [...Array(n).keys()]
-const size = { x: 11, y: 11} as const
-const offset = { x: (size.x - 1) * .5, y: (size.y - 1) * .5} as const
-// const offset = { x: 0, y: 0} as const
-const RC = n => [Math.floor(n / size.x), n % size.x]
-
-print()
+import {
+  offset,
+  range,
+  RC,
+  rotation,
+  size,
+} from "./pathfinding"
 
 export function Board() {
   return (
@@ -53,7 +52,8 @@ function Tiles() {
             <Instance
               key={`R${row}C${col}`}
               position={[col - offset.x, .001, row - offset.y]}
-              rotation-x={Math.PI / 2}
+              rotation-x={-Math.PI / 2}
+              rotation-z={rotation(row, col)}
               scale={[.8, .8, .8]}
             />
           ))
