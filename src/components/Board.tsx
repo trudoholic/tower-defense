@@ -37,6 +37,10 @@ function Tiles() {
         const [row, col] = RC(e.instanceId)
         console.log("row:", row, "col:", col)
       }}
+      onContextMenu={(e) => {
+        const [row, col] = RC(e.instanceId)
+        console.log("RC @", row, ":", col)
+      }}
     >
       <planeGeometry />
       <meshBasicMaterial
