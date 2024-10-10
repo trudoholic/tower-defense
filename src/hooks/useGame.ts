@@ -19,6 +19,7 @@ const useGame = () => {
 
   useEffect(() => {
     const onDocumentKey = (e) => {
+      e.preventDefault()
       // console.log(e.key, e.code)
       switch(e.code) {
         case "ArrowUp": {

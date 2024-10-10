@@ -1,6 +1,6 @@
 import {Suspense} from 'react'
 import * as THREE from "three"
-import {useLoader} from "@react-three/fiber"
+import {ThreeEvent, useLoader} from "@react-three/fiber"
 import {Instances, Instance} from "@react-three/drei"
 import {green, orange} from "./colors"
 
@@ -30,17 +30,17 @@ export function Board() {
 function Tiles() {
   const texture = useLoader(THREE.TextureLoader as any, './assets/img/arrow.png')
 
+  const handleClick = (e: ThreeEvent<MouseEvent>, rightClick: boolean) => {
+    e.nativeEvent.preventDefault()
+    const [row, col] = RC(e.instanceId)
+    console.log(rightClick? "[R]": "[L]", "row:", row, "col:", col)
+  }
+
   return (
     <Instances
       range={size.x * size.y}
-      onClick={(e) => {
-        const [row, col] = RC(e.instanceId)
-        console.log("row:", row, "col:", col)
-      }}
-      onContextMenu={(e) => {
-        const [row, col] = RC(e.instanceId)
-        console.log("RC @", row, ":", col)
-      }}
+      onClick={(e) => { handleClick(e, false) }}
+      onContextMenu={(e) => { handleClick(e, true) }}
     >
       <planeGeometry />
       <meshBasicMaterial
