@@ -1,3 +1,9 @@
+export enum Content {
+  Empty = 'Empty',
+  Destination = 'Destination',
+  // Wall = 'Wall',
+}
+
 interface ITile {
   id: number
   idN: number
@@ -9,6 +15,8 @@ interface ITile {
   distance: number
   next: number
   odd: number
+
+  content: Content
 }
 
 const tiles: ITile[] = []
@@ -19,6 +27,7 @@ export const size = { x: 11, y: 11} as const
 export const offset = { x: (size.x - 1) * .5, y: (size.y - 1) * .5} as const
 export const RC = n => [Math.floor(n / size.x), n % size.x]
 const idx = (row: number, col: number) => row * size.x + col
+export const at = (row: number, col: number) => tiles[idx(row, col)]
 
 export const rotation = (row: number, col: number) => {
   const tile = tiles[idx(row, col)]
@@ -40,18 +49,21 @@ function init() {
         distance: -1,
         next: -1,
         odd: (row + col) % 2,
+        content: Content.Empty,
       }
     })
   })
 }
 
 // function clear(id: number) {
+//   tiles[id].content = Content.Empty
 //   tiles[id].direction = -1
 //   tiles[id].distance = -1
 //   tiles[id].next = -1
 // }
 
 function setDestination(id: number) {
+  tiles[id].content = Content.Destination
   tiles[id].distance = 0
   tiles[id].next = -1
   queue.push(id)
