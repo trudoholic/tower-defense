@@ -5,6 +5,7 @@ import {Instances, Instance} from "@react-three/drei"
 import {green, orange} from "./colors"
 
 import {
+  isEmpty,
   offset,
   range,
   RC,
@@ -53,13 +54,14 @@ function Tiles() {
       {
         range(size.y).map((row) => (
           range(size.x).map((col) => (
-            <Instance
-              key={`R${row}C${col}`}
-              position={[col - offset.x, .001, row - offset.y]}
-              rotation-x={-Math.PI / 2}
-              rotation-z={rotation(row, col)}
-              scale={[.8, .8, .8]}
-            />
+              !isEmpty(row, col)? null:
+              <Instance
+                key={`R${row}C${col}`}
+                position={[col - offset.x, .001, row - offset.y]}
+                rotation-x={-Math.PI / 2}
+                rotation-z={rotation(row, col)}
+                scale={[.8, .8, .8]}
+              />
           ))
         ))
       }
