@@ -7,6 +7,7 @@ const useGame = () => {
   const { state, dispatch } = useAppContext()
   const {
     count,
+    destinationList,
   } = state as IState
 
   const incCount = (n: number) => {
@@ -37,12 +38,25 @@ const useGame = () => {
       document.removeEventListener('keyup', onDocumentKey)
     }
   }, [incCount, decCount])
+  //-----------------------------------------------------------------
+
+  const toggleDestination = (n: number) => {
+    dispatch({type: Actions.ToggleDestination, payload: n})
+  }
+  //-----------------------------------------------------------------
 
   return {
     count,
+    destinationList,
+
     incCount,
     decCount,
+    toggleDestination,
   }
 }
 
 export default useGame
+// import useGame from './useGame'
+// const {
+//   foo,
+// } = useGame()

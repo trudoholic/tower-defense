@@ -26,7 +26,7 @@ export const range = (n: number) => [...Array(n).keys()]
 export const size = { x: 11, y: 11} as const
 export const offset = { x: (size.x - 1) * .5, y: (size.y - 1) * .5} as const
 export const RC = n => [Math.floor(n / size.x), n % size.x]
-const idx = (row: number, col: number) => row * size.x + col
+export const idx = (row: number, col: number) => row * size.x + col
 const at = (row: number, col: number) => tiles[idx(row, col)]
 export const isEmpty = (row: number, col: number) => Content.Empty === at(row, col).content
 
