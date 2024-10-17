@@ -11,6 +11,7 @@ const useGame = () => {
   const {
     count,
     destinationList,
+    wallList,
   } = state as IState
 
   const tiles = useMemo(
@@ -56,17 +57,23 @@ const useGame = () => {
   const toggleDestination = (n: number) => {
     dispatch({type: Actions.ToggleDestination, payload: n})
   }
+
+  const toggleWall = (n: number) => {
+    dispatch({type: Actions.ToggleWall, payload: n})
+  }
   //-----------------------------------------------------------------
 
   return {
     count,
     destinationList,
     tiles,
+    wallList,
 
     incCount,
     decCount,
     getRotation,
     toggleDestination,
+    toggleWall,
   }
 }
 

@@ -9,16 +9,21 @@ function Tiles() {
   const {
     getRotation,
     toggleDestination,
+    toggleWall,
   } = useGame()
 
   const texture = useLoader(THREE.TextureLoader as any, './assets/img/arrow.png')
 
   const handleClick = (e: ThreeEvent<MouseEvent>, rightClick: boolean) => {
     e.nativeEvent.preventDefault()
-    const [row, col] = RC(e.instanceId)
-    console.log(rightClick? "[R]": "[L]", "row:", row, "col:", col, e.nativeEvent.ctrlKey? "ctrlKey": "")
+    // const [row, col] = RC(e.instanceId)
+    // console.log(rightClick? "[R]": "[L]", "row:", row, "col:", col, e.nativeEvent.ctrlKey? "ctrlKey": "")
     if (e.nativeEvent.ctrlKey) {
-      toggleDestination(+e.instanceId)
+      if (rightClick) {
+        toggleDestination(+e.instanceId)
+      } else {
+        toggleWall(+e.instanceId)
+      }
     }
   }
 

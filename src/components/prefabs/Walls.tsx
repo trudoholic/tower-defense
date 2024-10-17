@@ -1,11 +1,11 @@
 import useGame from "../../hooks/useGame"
 import {Instance, Instances} from "@react-three/drei"
-import {blue} from "../colors"
+import {brown} from "../colors"
 import {COLS, idx, offset, range, ROWS} from "../../hooks/utils"
 
-function Destinations() {
+function Walls() {
   const {
-    destinationList,
+    wallList,
   } = useGame()
 
   return (
@@ -13,15 +13,15 @@ function Destinations() {
       range={COLS * ROWS}
     >
       <boxGeometry />
-      <meshToonMaterial color={blue[700]} />
+      <meshToonMaterial color={brown[700]} />
       {
         range(ROWS).map((row) => (
           range(COLS).map((col) => (
-            !destinationList.includes(idx(row, col))? null:
+            !wallList.includes(idx(row, col))? null:
               <Instance
                 key={`R${row}C${col}`}
-                position={[col - offset.x, .05, row - offset.y]}
-                scale={[.8, .1, .8]}
+                position={[col - offset.x, .25, row - offset.y]}
+                scale={[.8, .5, .8]}
               />
           ))
         ))
@@ -30,4 +30,4 @@ function Destinations() {
   )
 }
 
-export default Destinations
+export default Walls

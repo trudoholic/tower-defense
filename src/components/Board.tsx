@@ -3,6 +3,7 @@ import {green} from "./colors"
 import {ROWS, COLS} from "../hooks/utils"
 import Destinations from "./prefabs/Destinations"
 import Tiles from "./prefabs/Tiles"
+import Walls from "./prefabs/Walls"
 
 export function Board() {
   return (
@@ -15,6 +16,7 @@ export function Board() {
       <Suspense fallback={null}>
         <Tiles/>
         <Destinations/>
+        <Walls/>
       </Suspense>
     </>
   )

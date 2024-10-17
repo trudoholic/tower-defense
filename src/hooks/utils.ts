@@ -92,7 +92,7 @@ export function updateTiles(
 
   while (queue.length) {
     const id = queue.shift()
-    if (id) step(id)
+    if (id >= 0) step(id)
   }
 
   printDistance(tiles)
