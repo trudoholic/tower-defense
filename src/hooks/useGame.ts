@@ -1,17 +1,10 @@
-import {useEffect} from "react"
+import {useEffect, useMemo} from "react"
 import useAppContext from "../context/useAppContext"
 import {Actions} from "../context/reducer"
 import {IState} from "../context/state"
-import {createTiles, idx, printDistance, printDirection} from './utils.ts'
+import {idx, createTiles, updateTiles} from './utils.ts'
 
-const tiles = createTiles()
-printDistance(tiles)
-printDirection(tiles)
-
-export const getRotation = (row: number, col: number) => {
-  const tile = tiles[idx(row, col)]
-  return -Math.PI / 2 * tile.direction
-}
+const initTiles = createTiles()
 
 const useGame = () => {
   const { state, dispatch } = useAppContext()
@@ -19,6 +12,16 @@ const useGame = () => {
     count,
     destinationList,
   } = state as IState
+
+  const tiles = useMemo(
+    () => updateTiles(initTiles, destinationList),
+    [destinationList]
+  )
+
+  const getRotation = (row: number, col: number) => {
+    const tile = tiles[idx(row, col)]
+    return -Math.PI / 2 * tile.direction
+  }
 
   const incCount = (n: number) => {
     dispatch({type: Actions.SetCount, payload: count + n})

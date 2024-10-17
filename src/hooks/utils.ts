@@ -18,7 +18,6 @@ interface ITile {
 export const ROWS = 11
 export const COLS = 11
 export const offset = { x: (COLS - 1) * .5, y: (ROWS - 1) * .5} as const
-const startDestination = Math.floor(ROWS * COLS / 2)
 
 export const idx = (row: number, col: number) => row * COLS + col
 export const range = (n: number) => [...Array(n).keys()]
@@ -47,19 +46,14 @@ export function createTiles(): ITile[] {
     })
   })
 
-  setDestination(tiles, startDestination)
-  return updateTiles(tiles)
-
-  // return tiles
+  return tiles
 }
 
-function setDestination(tiles: ITile[], id: number) {
-  tiles[id].content = "Tile.Destination"
-  tiles[id].distance = 0
-  tiles[id].next = -1
-}
+export function updateTiles(
+  initTiles: ITile[],
+  destinationList: number[]
+): ITile[] {
 
-export function updateTiles(prevTiles: ITile[]): ITile[] {
   function growPath(dst: number, src: number, direction: number) {
     if (src < 0) return
     const tile = tiles[src]
@@ -86,15 +80,23 @@ export function updateTiles(prevTiles: ITile[]): ITile[] {
     }
   }
 
-  const tiles = prevTiles.map(tile => ({...tile}))
+  const tiles = initTiles.map(tile => ({...tile}))
   const queue: number[] = []
-  queue.push(startDestination)
+
+  destinationList.forEach(id => {
+    tiles[id].content = "Tile.Destination"
+    tiles[id].distance = 0
+    tiles[id].next = -1
+    queue.push(id)
+  })
 
   while (queue.length) {
     const id = queue.shift()
     if (id) step(id)
   }
 
+  printDistance(tiles)
+  printDirection(tiles)
   return tiles
 }
 
