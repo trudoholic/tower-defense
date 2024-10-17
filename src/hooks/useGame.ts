@@ -2,6 +2,16 @@ import {useEffect} from "react"
 import useAppContext from "../context/useAppContext"
 import {Actions} from "../context/reducer"
 import {IState} from "../context/state"
+import {createTiles, idx, printDistance, printDirection} from './utils.ts'
+
+const tiles = createTiles()
+printDistance(tiles)
+printDirection(tiles)
+
+export const getRotation = (row: number, col: number) => {
+  const tile = tiles[idx(row, col)]
+  return -Math.PI / 2 * tile.direction
+}
 
 const useGame = () => {
   const { state, dispatch } = useAppContext()
@@ -48,9 +58,11 @@ const useGame = () => {
   return {
     count,
     destinationList,
+    tiles,
 
     incCount,
     decCount,
+    getRotation,
     toggleDestination,
   }
 }

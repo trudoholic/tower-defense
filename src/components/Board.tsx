@@ -6,20 +6,15 @@ import {blue, green, orange} from "./colors"
 import useGame from "../hooks/useGame"
 
 import {
-  idx,
-  isEmpty,
-  offset,
-  range,
-  RC,
-  rotation,
-  size,
-} from "./pathfinding"
+  ROWS, COLS, offset,
+  idx, range, RC,
+} from "../hooks/utils"
 
 export function Board() {
   return (
     <>
       <mesh rotation-x={-Math.PI / 2}>
-        <planeGeometry args={[size.x, size.y]} />
+        <planeGeometry args={[COLS, ROWS]} />
         <meshBasicMaterial color={ green[900] } />
       </mesh>
 
@@ -33,6 +28,7 @@ export function Board() {
 
 function Tiles() {
   const {
+    getRotation,
     toggleDestination,
   } = useGame()
 
@@ -41,13 +37,15 @@ function Tiles() {
   const handleClick = (e: ThreeEvent<MouseEvent>, rightClick: boolean) => {
     e.nativeEvent.preventDefault()
     const [row, col] = RC(e.instanceId)
-    console.log(rightClick? "[R]": "[L]", "row:", row, "col:", col)
-    toggleDestination(+e.instanceId)
+    console.log(rightClick? "[R]": "[L]", "row:", row, "col:", col, e.nativeEvent.ctrlKey? "ctrlKey": "")
+    if (e.nativeEvent.ctrlKey) {
+      toggleDestination(+e.instanceId)
+    }
   }
 
   return (
     <Instances
-      range={size.x * size.y}
+      range={COLS * ROWS}
       onClick={(e) => { handleClick(e, false) }}
       onContextMenu={(e) => { handleClick(e, true) }}
     >
@@ -60,14 +58,14 @@ function Tiles() {
         transparent={true}
       />
       {
-        range(size.y).map((row) => (
-          range(size.x).map((col) => (
+        range(ROWS).map((row) => (
+          range(COLS).map((col) => (
               // !isEmpty(row, col)? null:
               <Instance
                 key={`R${row}C${col}`}
                 position={[col - offset.x, .001, row - offset.y]}
                 rotation-x={-Math.PI / 2}
-                rotation-z={rotation(row, col)}
+                rotation-z={getRotation(row, col)}
                 scale={[.8, .8, .8]}
               />
           ))
@@ -85,13 +83,13 @@ function Destinations() {
 
   return (
     <Instances
-      range={size.x * size.y}
+      range={COLS * ROWS}
     >
       <boxGeometry />
       <meshToonMaterial color={blue[900]} />
       {
-        range(size.y).map((row) => (
-          range(size.x).map((col) => (
+        range(ROWS).map((row) => (
+          range(COLS).map((col) => (
             !destinationList.includes(idx(row, col))? null:
               <Instance
                 key={`R${row}C${col}`}
