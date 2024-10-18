@@ -51,7 +51,8 @@ export function createTiles(): ITile[] {
 
 export function updateTiles(
   initTiles: ITile[],
-  destinationList: number[]
+  destinationList: number[],
+  wallList: number[],
 ): ITile[] {
 
   function growPath(dst: number, src: number, direction: number) {
@@ -88,6 +89,10 @@ export function updateTiles(
     tiles[id].distance = 0
     tiles[id].next = -1
     queue.push(id)
+  })
+
+  wallList.forEach(id => {
+    tiles[id].content = "Tile.Wall"
   })
 
   while (queue.length) {

@@ -15,9 +15,14 @@ const useGame = () => {
   } = state as IState
 
   const tiles = useMemo(
-    () => updateTiles(initTiles, destinationList),
+    () => updateTiles(initTiles, destinationList, wallList),
     [destinationList]
   )
+
+  const getContent = (row: number, col: number) => {
+    const tile = tiles[idx(row, col)]
+    return tile.content
+  }
 
   const getRotation = (row: number, col: number) => {
     const tile = tiles[idx(row, col)]
@@ -71,6 +76,7 @@ const useGame = () => {
 
     incCount,
     decCount,
+    getContent,
     getRotation,
     toggleDestination,
     toggleWall,
