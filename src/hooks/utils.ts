@@ -118,12 +118,26 @@ export function printDistance(tiles: ITile[]) {
 }
 
 export function printDirection(tiles: ITile[]) {
+  const css = []
   console.log(
     range(ROWS).map((row) => (
       range(COLS).map((col) => {
         const tile = tiles[idx(row, col)]
-        return tile.direction < 0? "□": "↑→↓←".charAt(tile.direction)
+
+        if ("Tile.Destination" === tile.content) {
+          css.push("color: fuchsia")
+          return "%c●"
+        }
+        else if ("Tile.Wall" === tile.content) {
+          css.push("color: lime")
+          return "%c□"
+        }
+        else {
+          css.push("color: silver")
+          return "%c" + "↑→↓←".charAt(tile.direction)
+        }
       }).join(' ')
-    )).join('\r\n')
+
+    )).join('\r\n'), ...css
   )
 }
