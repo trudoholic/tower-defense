@@ -62,7 +62,7 @@ export function updateTiles(
       tile.direction = direction
       tile.distance = tiles[dst].distance + 1
       tile.next = dst
-      queue.push(src)
+      if ("Tile.Wall" !== tile.content) queue.push(src)
     }
   }
 
@@ -101,9 +101,14 @@ export function updateTiles(
   }
 
   console.clear()
-  // printDistance(tiles)
+  console.log(stateValid(tiles))
+  printDistance(tiles)
   printDirection(tiles)
   return tiles
+}
+
+export function stateValid(tiles: ITile[]) {
+  return tiles.every(tile => tile.distance >= 0)
 }
 
 export function printDistance(tiles: ITile[]) {
@@ -111,8 +116,10 @@ export function printDistance(tiles: ITile[]) {
     range(ROWS).map((row) => (
       range(COLS).map((col) => {
         const tile = tiles[idx(row, col)]
-        const n = tile.id
-        return tile.distance? ("   " + n).slice(-3): " --"
+        // const n = tile.id
+        // return tile.direction >= 0? tile.direction: "^"
+        return tile.distance >= 0? tile.distance: "^"
+        // return tile.distance? ("   " + n).slice(-3): " --"
       }).join(' ')
     )).join('\r\n')
   )
@@ -132,6 +139,10 @@ export function printDirection(tiles: ITile[]) {
         else if ("Tile.Wall" === tile.content) {
           css.push("color: lime")
           return "%c□"
+        }
+        else if (tile.distance < 0) {
+          css.push("color: red")
+          return "%c×"
         }
         else {
           css.push("color: silver")
