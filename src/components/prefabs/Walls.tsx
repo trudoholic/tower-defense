@@ -6,13 +6,14 @@ import {COLS, idx, offset, range, ROWS} from "../../hooks/utils"
 function Walls() {
   const {
     getContent,
+    isWall,
     wallList,
   } = useGame()
 
   range(ROWS).map((row) => (
     range(COLS).map((col) => (
       wallList.includes(idx(row, col))? (
-        console.log(`R${row}C${col}`, getContent(row, col))
+        console.log(`R${row}C${col}`, getContent(row, col), isWall(row, col))
       ): null
     ))
   ))

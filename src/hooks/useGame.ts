@@ -16,18 +16,18 @@ const useGame = () => {
 
   const tiles = useMemo(
     () => updateTiles(initTiles, destinationList, wallList),
-    [destinationList]
+    [destinationList, wallList]
   )
 
-  const getContent = (row: number, col: number) => {
-    const tile = tiles[idx(row, col)]
-    return tile.content
-  }
+  const at = (row: number, col: number) => tiles[idx(row, col)]
+  const getContent = (row: number, col: number) => at(row, col)?.content
+  const getRotation = (row: number, col: number) => -Math.PI / 2 * at(row, col)?.direction
 
-  const getRotation = (row: number, col: number) => {
-    const tile = tiles[idx(row, col)]
-    return -Math.PI / 2 * tile.direction
-  }
+  const isEmpty = (row: number, col: number) => "Tile.Empty" === at(row, col)?.content
+  const isDestination = (row: number, col: number) => "Tile.Destination" === at(row, col)?.content
+  const isWall = (row: number, col: number) => "Tile.Wall" === at(row, col)?.content
+
+  //-----------------------------------------------------------------
 
   const incCount = (n: number) => {
     dispatch({type: Actions.SetCount, payload: count + n})
@@ -78,6 +78,9 @@ const useGame = () => {
     decCount,
     getContent,
     getRotation,
+    isEmpty,
+    isDestination,
+    isWall,
     toggleDestination,
     toggleWall,
   }
