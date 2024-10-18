@@ -97,10 +97,11 @@ export function updateTiles(
 
   while (queue.length) {
     const id = queue.shift()
-    if (id >= 0) step(id)
+    if (id >= 0) step(+id)
   }
 
-  printDistance(tiles)
+  console.clear()
+  // printDistance(tiles)
   printDirection(tiles)
   return tiles
 }

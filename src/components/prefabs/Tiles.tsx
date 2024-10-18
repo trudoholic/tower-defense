@@ -8,6 +8,9 @@ import {COLS, offset, range, RC, ROWS} from "../../hooks/utils"
 function Tiles() {
   const {
     getRotation,
+    // isEmpty,
+    isDestination,
+    isWall,
     toggleDestination,
     toggleWall,
   } = useGame()
@@ -16,13 +19,12 @@ function Tiles() {
 
   const handleClick = (e: ThreeEvent<MouseEvent>, rightClick: boolean) => {
     e.nativeEvent.preventDefault()
-    // const [row, col] = RC(e.instanceId)
-    // console.log(rightClick? "[R]": "[L]", "row:", row, "col:", col, e.nativeEvent.ctrlKey? "ctrlKey": "")
+    const [row, col] = RC(e.instanceId)
     if (e.nativeEvent.ctrlKey) {
       if (rightClick) {
-        toggleDestination(+e.instanceId)
+        if (!isWall(row, col)) toggleDestination(+e.instanceId)
       } else {
-        toggleWall(+e.instanceId)
+        if (!isDestination(row, col)) toggleWall(+e.instanceId)
       }
     }
   }
