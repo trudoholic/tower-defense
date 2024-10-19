@@ -1,4 +1,5 @@
 import {Suspense} from "react"
+import {useControls} from 'leva'
 import {green} from "./colors"
 import {ROWS, COLS} from "../hooks/utils"
 import Arrows from "./prefabs/Arrows"
@@ -7,6 +8,10 @@ import Tiles from "./prefabs/Tiles"
 import Walls from "./prefabs/Walls"
 
 export function Board() {
+  const { showPaths } = useControls({
+    showPaths: true,
+  })
+
   return (
     <>
       <mesh rotation-x={-Math.PI / 2}>
@@ -16,7 +21,7 @@ export function Board() {
 
       <Suspense fallback={null}>
         <Tiles/>
-        <Arrows/>
+        {showPaths && <Arrows/>}
         <Destinations/>
         <Walls/>
       </Suspense>

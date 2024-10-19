@@ -1,9 +1,14 @@
 import {ThreeEvent} from "@react-three/fiber"
 import {Instance, Instances} from "@react-three/drei"
+import {useControls} from 'leva'
 import useGame from "../../hooks/useGame"
 import {ROWS, COLS, offset, range, RC} from "../../hooks/utils"
 
 function Tiles() {
+  const { showGrid } = useControls({
+    showGrid: true,
+  })
+
   const {
     toggleDestination,
     toggleWall,
@@ -31,7 +36,7 @@ function Tiles() {
       <planeGeometry />
       <meshBasicMaterial
         color={"white"}
-        opacity={.1}
+        opacity={showGrid? .1: 0}
         transparent={true}
       />
       {

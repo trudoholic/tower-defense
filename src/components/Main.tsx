@@ -37,7 +37,7 @@ const Main = () => {
 
       <Canvas style={canvasStyle} gl={gl} camera={camera}>
         {/*<color attach="background" args={['blue']} />*/}
-        <axesHelper args={[5]} />
+        {/*<axesHelper args={[6]} />*/}
         {/*<gridHelper args={[16, 16, 0x999999, 0x333333]} />*/}
         <Game />
       </Canvas>
