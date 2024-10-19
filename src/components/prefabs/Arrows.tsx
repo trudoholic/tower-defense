@@ -8,7 +8,6 @@ import {ROWS, COLS, offset, range} from "../../hooks/utils"
 function Arrows() {
   const {
     getRotation,
-    // isEmpty,
   } = useGame()
 
   const texture = useLoader(THREE.TextureLoader as any, './assets/img/arrow.png')
@@ -28,7 +27,6 @@ function Arrows() {
       {
         range(ROWS).map((row) => (
           range(COLS).map((col) => (
-            // !isEmpty(row, col)? null:
             <Instance
               key={`R${row}C${col}`}
               position={[col - offset.x, .002, row - offset.y]}

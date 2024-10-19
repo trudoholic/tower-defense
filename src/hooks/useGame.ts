@@ -59,12 +59,18 @@ const useGame = () => {
   }, [incCount, decCount])
   //-----------------------------------------------------------------
 
-  const toggleDestination = (n: number) => {
-    dispatch({type: Actions.ToggleDestination, payload: n})
+  const toggleDestination = (id: number) => {
+    const content = tiles[id]?.content
+    if ("Tile.Empty" === content || "Tile.Destination" === content) {
+      dispatch({type: Actions.ToggleDestination, payload: id})
+    }
   }
 
-  const toggleWall = (n: number) => {
-    dispatch({type: Actions.ToggleWall, payload: n})
+  const toggleWall = (id: number) => {
+    const content = tiles[id]?.content
+    if ("Tile.Empty" === content || "Tile.Wall" === content) {
+      dispatch({type: Actions.ToggleWall, payload: id})
+    }
   }
   //-----------------------------------------------------------------
 

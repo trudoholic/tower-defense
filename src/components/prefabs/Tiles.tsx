@@ -5,9 +5,6 @@ import {ROWS, COLS, offset, range, RC} from "../../hooks/utils"
 
 function Tiles() {
   const {
-    // isEmpty,
-    isDestination,
-    isWall,
     toggleDestination,
     toggleWall,
   } = useGame()
@@ -18,9 +15,9 @@ function Tiles() {
     console.log(`R${row}C${col}`)
     if (e.nativeEvent.ctrlKey) {
       if (rightClick) {
-        if (!isWall(row, col)) toggleDestination(+e.instanceId)
+        toggleDestination(+e.instanceId)
       } else {
-        if (!isDestination(row, col)) toggleWall(+e.instanceId)
+        toggleWall(+e.instanceId)
       }
     }
   }
