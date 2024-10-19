@@ -11,12 +11,13 @@ const useGame = () => {
   const {
     count,
     destinationList,
+    spawnPointList,
     wallList,
   } = state as IState
 
   const tiles = useMemo(
-    () => updateTiles(initTiles, destinationList, wallList),
-    [destinationList, wallList]
+    () => updateTiles(initTiles, destinationList, spawnPointList, wallList),
+    [destinationList, spawnPointList, wallList]
   )
 
   const at = (row: number, col: number) => tiles[idx(row, col)]
@@ -25,6 +26,7 @@ const useGame = () => {
 
   const isEmpty = (row: number, col: number) => "Tile.Empty" === at(row, col)?.content
   const isDestination = (row: number, col: number) => "Tile.Destination" === at(row, col)?.content
+  const isSpawnPoint = (row: number, col: number) => "Tile.SpawnPoint" === at(row, col)?.content
   const isWall = (row: number, col: number) => "Tile.Wall" === at(row, col)?.content
 
   //-----------------------------------------------------------------
@@ -66,12 +68,20 @@ const useGame = () => {
     }
   }
 
+  const toggleSpawnPoint = (id: number) => {
+    const content = tiles[id]?.content
+    if ("Tile.Empty" === content || "Tile.SpawnPoint" === content) {
+      dispatch({type: Actions.ToggleSpawnPoint, payload: id})
+    }
+  }
+
   const toggleWall = (id: number) => {
     const content = tiles[id]?.content
     if ("Tile.Empty" === content || "Tile.Wall" === content) {
       dispatch({type: Actions.ToggleWall, payload: id})
     }
   }
+
   //-----------------------------------------------------------------
 
   return {
@@ -86,8 +96,10 @@ const useGame = () => {
     getRotation,
     isEmpty,
     isDestination,
+    isSpawnPoint,
     isWall,
     toggleDestination,
+    toggleSpawnPoint,
     toggleWall,
   }
 }

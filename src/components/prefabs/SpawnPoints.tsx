@@ -1,11 +1,11 @@
 import useGame from "../../hooks/useGame"
 import {Instance, Instances} from "@react-three/drei"
-import {blue} from "../colors"
+import {amber} from "../colors"
 import {COLS, offset, range, ROWS} from "../../hooks/utils"
 
-function Destinations() {
+function SpawnPoints() {
   const {
-    isDestination,
+    isSpawnPoint,
   } = useGame()
 
   return (
@@ -13,11 +13,11 @@ function Destinations() {
       range={COLS * ROWS}
     >
       <boxGeometry />
-      <meshLambertMaterial color={blue[800]} />
+      <meshLambertMaterial color={amber[800]} />
       {
         range(ROWS).map((row) => (
           range(COLS).map((col) => (
-            !isDestination(row, col)? null:
+            !isSpawnPoint(row, col)? null:
               <Instance
                 key={`D:R${row}C${col}`}
                 position={[col - offset.x, .01, row - offset.y]}
@@ -30,4 +30,4 @@ function Destinations() {
   )
 }
 
-export default Destinations
+export default SpawnPoints

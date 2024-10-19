@@ -11,6 +11,7 @@ function Tiles() {
 
   const {
     toggleDestination,
+    toggleSpawnPoint,
     toggleWall,
   } = useGame()
 
@@ -23,6 +24,11 @@ function Tiles() {
         toggleDestination(+e.instanceId)
       } else {
         toggleWall(+e.instanceId)
+      }
+    }
+    else if (e.nativeEvent.shiftKey) {
+      if (rightClick) {
+        toggleSpawnPoint(+e.instanceId)
       }
     }
   }

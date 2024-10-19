@@ -1,4 +1,4 @@
-type Content = "Tile.Empty" | "Tile.Destination" | "Tile.Wall"
+type Content = "Tile.Empty" | "Tile.Destination" | "Tile.SpawnPoint" | "Tile.Wall"
 
 interface ITile {
   id: number
@@ -52,6 +52,7 @@ export function createTiles(): ITile[] {
 export function updateTiles(
   initTiles: ITile[],
   destinationList: number[],
+  spawnPointList: number[],
   wallList: number[],
 ): ITile[] {
 
@@ -89,6 +90,10 @@ export function updateTiles(
     tiles[id].distance = 0
     tiles[id].next = -1
     queue.push(id)
+  })
+
+  spawnPointList.forEach(id => {
+    tiles[id].content = "Tile.SpawnPoint"
   })
 
   wallList.forEach(id => {
@@ -136,8 +141,12 @@ export function printDirection(tiles: ITile[]) {
           css.push("color: fuchsia")
           return "%c●"
         }
-        else if ("Tile.Wall" === tile.content) {
+        else if ("Tile.SpawnPoint" === tile.content) {
           css.push("color: lime")
+          return "%c●"
+        }
+        else if ("Tile.Wall" === tile.content) {
+          css.push("color: yellow")
           return "%c□"
         }
         else if (tile.distance < 0) {

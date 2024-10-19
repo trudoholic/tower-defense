@@ -4,6 +4,7 @@ import {green} from "./colors"
 import {ROWS, COLS} from "../hooks/utils"
 import Arrows from "./prefabs/Arrows"
 import Destinations from "./prefabs/Destinations"
+import SpawnPoints from "./prefabs/SpawnPoints"
 import Tiles from "./prefabs/Tiles"
 import Walls from "./prefabs/Walls"
 
@@ -23,6 +24,7 @@ export function Board() {
         <Tiles/>
         {showPaths && <Arrows/>}
         <Destinations/>
+        <SpawnPoints/>
         <Walls/>
       </Suspense>
     </>

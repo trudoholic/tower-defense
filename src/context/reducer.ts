@@ -3,12 +3,14 @@ import { IState } from "./state"
 export enum Actions {
   SetCount,
   ToggleDestination,
+  ToggleSpawnPoint,
   ToggleWall,
 }
 
 export type TAction =
   | { type: Actions.SetCount, payload: number }
   | { type: Actions.ToggleDestination, payload: number }
+  | { type: Actions.ToggleSpawnPoint, payload: number }
   | { type: Actions.ToggleWall, payload: number }
 
 export const reducer = (state: IState, action: TAction): IState => {
@@ -20,6 +22,10 @@ export const reducer = (state: IState, action: TAction): IState => {
 
     case Actions.ToggleDestination: {
       return { ...state, destinationList: toggle(action.payload, state.destinationList) }
+    }
+
+    case Actions.ToggleSpawnPoint: {
+      return { ...state, spawnPointList: toggle(action.payload, state.spawnPointList) }
     }
 
     case Actions.ToggleWall: {
