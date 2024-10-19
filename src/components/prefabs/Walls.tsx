@@ -13,7 +13,7 @@ function Walls() {
       range={COLS * ROWS}
     >
       <boxGeometry />
-      <meshToonMaterial color={brown[700]} />
+      <meshLambertMaterial color={brown[600]} />
       {
         range(ROWS).map((row) => (
           range(COLS).map((col) => (

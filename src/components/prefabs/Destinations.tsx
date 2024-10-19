@@ -13,15 +13,15 @@ function Destinations() {
       range={COLS * ROWS}
     >
       <boxGeometry />
-      <meshToonMaterial color={blue[700]} />
+      <meshLambertMaterial color={blue[800]} />
       {
         range(ROWS).map((row) => (
           range(COLS).map((col) => (
             !destinationList.includes(idx(row, col))? null:
               <Instance
                 key={`R${row}C${col}`}
-                position={[col - offset.x, .05, row - offset.y]}
-                scale={[.8, .1, .8]}
+                position={[col - offset.x, .01, row - offset.y]}
+                scale={[.8, .02, .8]}
               />
           ))
         ))
