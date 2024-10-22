@@ -5,6 +5,7 @@ import {IState} from "../context/state"
 import {idx, createTiles, updateTiles} from './utils.ts'
 
 const initTiles = createTiles()
+let mobCnt = 0n
 
 const useGame = () => {
   const { state, dispatch } = useAppContext()
@@ -13,12 +14,18 @@ const useGame = () => {
     destinationList,
     spawnPointList,
     wallList,
+
+    mobData,
+    mobList,
   } = state as IState
 
   const tiles = useMemo(
     () => updateTiles(initTiles, destinationList, spawnPointList, wallList),
     [destinationList, spawnPointList, wallList]
   )
+
+  // console.log(mobList)
+  // console.log(mobData)
 
   const at = (row: number, col: number) => tiles[idx(row, col)]
   const getContent = (row: number, col: number) => at(row, col)?.content
@@ -84,10 +91,31 @@ const useGame = () => {
 
   //-----------------------------------------------------------------
 
+  const createMob = () => {
+    if (spawnPointList.length) {
+      const id = (++mobCnt).toString(36)
+      console.log("--->", mobCnt, ':', id)
+      const tileId = spawnPointList[0]
+      const payload = {id, data: {tileId}}
+      dispatch({type: Actions.CreateMob, payload})
+    }
+  }
+
+  const dropMob = () => {
+    if (mobList.length) {
+      const mobId = mobList[0]
+      dispatch({type: Actions.DropMob, payload: mobId})
+    }
+  }
+
+  //-----------------------------------------------------------------
+
   return {
     count,
     destinationList,
     tiles,
+    mobData,
+    mobList,
     wallList,
 
     incCount,
@@ -101,6 +129,9 @@ const useGame = () => {
     toggleDestination,
     toggleSpawnPoint,
     toggleWall,
+
+    createMob,
+    dropMob,
   }
 }
 

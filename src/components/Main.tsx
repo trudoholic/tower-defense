@@ -7,8 +7,12 @@ import Game from './Game'
 const Main = () => {
   const {
     count,
+
     incCount,
     decCount,
+
+    createMob,
+    dropMob,
   } = useGame()
 
   const gl = {
@@ -43,10 +47,16 @@ const Main = () => {
       </Canvas>
 
       <div style={divStyle}>
-        <button onClick={() => incCount(1)}>
+        <button onClick={() => {
+          incCount(1)
+          createMob()
+        }}>
           +
         </button>
-        <button onClick={() => decCount(1)}>
+        <button onClick={() => {
+          decCount(1)
+          dropMob()
+        }}>
           -
         </button>
         <p>
