@@ -1,17 +1,17 @@
+import {useState} from "react"
 import {a, useSpring} from "@react-spring/three"
 import {Edges} from "@react-three/drei"
 import {offset} from "../../hooks/utils"
 
 export function TestBox() {
 
-  const myCallback = () => {
-    console.log("animation complete");
-  }
+  const [xx, setXX] = useState(1)
+
   const {x} = useSpring({
     from: { x: 0 },
-    to: { x: 3 },
+    to: { x: xx },
     config: {duration: 1500},
-    onRest: myCallback
+    onRest: () => { setXX(t => (t + 1) % 5) }
   })
 
   return (
