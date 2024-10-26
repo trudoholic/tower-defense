@@ -8,7 +8,7 @@ import {Thing} from './Thing'
 
 export default function Game() {
   const { position, visible, color } = useControls({
-    position: { x: 6, y: 0, z: 0 },
+    position: { x: 7, y: 0, z: 0 },
     visible: true,
     color: { value: blue[900] },
   })
@@ -37,7 +37,7 @@ export default function Game() {
 
       <Board />
       <Suspense fallback={null}>
-        <Thing position={[-5, 1, 0]} />
+        <Thing position={[-6, 1, 0]} />
       </Suspense>
     </>
   )
