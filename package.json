@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-spring/three": "^9.7.5",
     "@react-three/drei": "^9.114.0",
     "@react-three/fiber": "^8.17.9",
     "@types/three": "^0.169.0",
@@ -31,5 +32,9 @@
     "typescript-eslint": "^8.7.0",
     "vite": "^5.4.8"
   },
-  "overrides": { "leva": { "@radix-ui/react-portal": "1.0.2" } }
+  "overrides": {
+    "leva": {
+      "@radix-ui/react-portal": "1.0.2"
+    }
+  }
 }
