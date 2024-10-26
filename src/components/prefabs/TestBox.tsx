@@ -39,7 +39,14 @@ export function TestBox() {
           castShadow={true}
           receiveShadow={true}
         >
-          <boxGeometry />
+          {/*<boxGeometry />*/}
+
+          <cylinderGeometry args={[1, 1, 2, 6]} />
+          {/* radiusTop:1, radiusBottom:1, height:1, radialSegments:32 */}
+
+          {/*<coneGeometry args={[1, 2, 6]} />*/}
+          {/* radius:1, height:1, radialSegments:32 */}
+
           <meshStandardMaterial color={"orange"} fog={false} />
           <Edges color={"white"} linewidth={.5} />
         </mesh>
