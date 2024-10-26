@@ -1,7 +1,7 @@
 import useGame from "../../hooks/useGame"
 import {Instance, Instances} from "@react-three/drei"
 import {brown} from "../colors"
-import {COLS, offset, range, ROWS} from "../../hooks/utils"
+import {ROWS, COLS, range} from "../../hooks/utils"
 
 function Walls() {
   const {
@@ -20,7 +20,7 @@ function Walls() {
             !isWall(row, col)? null:
               <Instance
                 key={`R${row}C${col}`}
-                position={[col - offset.x, .25, row - offset.y]}
+                position={[col, .25, row]}
                 scale={[.95, .5, .95]}
               />
           ))

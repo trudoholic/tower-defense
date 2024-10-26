@@ -1,7 +1,7 @@
 import useGame from "../../hooks/useGame"
 import {Instance, Instances} from "@react-three/drei"
 import {blue} from "../colors"
-import {offset, RC} from "../../hooks/utils"
+import {RC} from "../../hooks/utils"
 
 function Mobs() {
   const {
@@ -11,7 +11,7 @@ function Mobs() {
 
   function getPosition(id: string) {
     const rc = RC(mobData.get(id).tileId)
-    return [rc[1] - offset.x, .25, rc[0] - offset.y]
+    return [rc[1], .25, rc[0]]
   }
 
   return (

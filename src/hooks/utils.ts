@@ -17,7 +17,6 @@ interface ITile {
 
 export const ROWS = 11
 export const COLS = 11
-export const offset = { x: (COLS - 1) * .5, y: (ROWS - 1) * .5} as const
 
 export const idx = (row: number, col: number) => row * COLS + col
 export const range = (n: number) => [...Array(n).keys()]

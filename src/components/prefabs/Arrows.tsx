@@ -3,7 +3,7 @@ import {useLoader} from "@react-three/fiber"
 import {Instance, Instances} from "@react-three/drei"
 import {orange} from "../colors"
 import useGame from "../../hooks/useGame"
-import {ROWS, COLS, offset, range} from "../../hooks/utils"
+import {ROWS, COLS, range} from "../../hooks/utils"
 
 function Arrows() {
   const {
@@ -29,7 +29,7 @@ function Arrows() {
           range(COLS).map((col) => (
             <Instance
               key={`R${row}C${col}`}
-              position={[col - offset.x, .002, row - offset.y]}
+              position={[col, .002, row]}
               rotation-x={-Math.PI / 2}
               rotation-z={getRotation(row, col)}
               scale={[.8, .8, .8]}

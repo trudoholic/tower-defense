@@ -1,7 +1,7 @@
 import useGame from "../../hooks/useGame"
 import {Instance, Instances} from "@react-three/drei"
 import {blue} from "../colors"
-import {COLS, offset, range, ROWS} from "../../hooks/utils"
+import {ROWS, COLS, range} from "../../hooks/utils"
 
 function Destinations() {
   const {
@@ -20,7 +20,8 @@ function Destinations() {
             !isDestination(row, col)? null:
               <Instance
                 key={`D:R${row}C${col}`}
-                position={[col - offset.x, .01, row - offset.y]}
+                position={[col, .01, row]}
+                // position={[col - offset.x, .01, row - offset.y]}
                 scale={[.8, .02, .8]}
               />
           ))

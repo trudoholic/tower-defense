@@ -15,9 +15,14 @@ export function Board() {
     showPaths: true,
   })
 
+  const offset = { x: (COLS - 1) * .5, y: (ROWS - 1) * .5} as const
+
   return (
-    <>
-      <mesh rotation-x={-Math.PI / 2}>
+    <group position={[-offset.x, 0, -offset.y]}>
+      <mesh
+        position={[offset.x, 0, offset.y]}
+        rotation-x={-Math.PI / 2}
+      >
         <planeGeometry args={[COLS + .1, ROWS + .1]} />
         <meshBasicMaterial color={ green[900] } />
       </mesh>
@@ -30,6 +35,6 @@ export function Board() {
         <Walls/>
         <Mobs/>
       </Suspense>
-    </>
+    </group>
   )
 }

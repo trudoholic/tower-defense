@@ -2,7 +2,7 @@ import {ThreeEvent} from "@react-three/fiber"
 import {Instance, Instances} from "@react-three/drei"
 import {useControls} from 'leva'
 import useGame from "../../hooks/useGame"
-import {ROWS, COLS, offset, range, RC} from "../../hooks/utils"
+import {ROWS, COLS, range, RC} from "../../hooks/utils"
 
 function Tiles() {
   const { showGrid } = useControls({
@@ -50,7 +50,7 @@ function Tiles() {
           range(COLS).map((col) => (
             <Instance
               key={`R${row}C${col}`}
-              position={[col - offset.x, .001, row - offset.y]}
+              position={[col, .001, row]}
               rotation-x={-Math.PI / 2}
               scale={[.9, .9, .9]}
             />
