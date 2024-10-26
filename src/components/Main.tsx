@@ -23,7 +23,7 @@ const Main = () => {
     fov: 45,
     near: 0.1,
     far: 200,
-    position: [0, 15, 0],
+    position: [0, 14, 0],
   }
 
   const canvasStyle = {
