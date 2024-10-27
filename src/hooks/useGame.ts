@@ -1,11 +1,11 @@
 import {useEffect, useMemo} from "react"
+import {nanoid} from "nanoid"
 import useAppContext from "../context/useAppContext"
 import {Actions} from "../context/reducer"
 import {IState} from "../context/state"
-import {idx, createTiles, updateTiles} from './utils.ts'
+import {idx, createTiles, updateTiles} from "./utils.ts"
 
 const initTiles = createTiles()
-let mobCnt = 0n
 
 const useGame = () => {
   const { state, dispatch } = useAppContext()
@@ -46,6 +46,8 @@ const useGame = () => {
     dispatch({type: Actions.SetCount, payload: count - n})
   }
 
+  //-----------------------------------------------------------------
+
   useEffect(() => {
     const onDocumentKey = (e) => {
       e.preventDefault()
@@ -66,6 +68,7 @@ const useGame = () => {
       document.removeEventListener('keyup', onDocumentKey)
     }
   }, [incCount, decCount])
+
   //-----------------------------------------------------------------
 
   const toggleDestination = (id: number) => {
@@ -93,10 +96,9 @@ const useGame = () => {
 
   const createMob = () => {
     if (spawnPointList.length) {
-      const id = (++mobCnt).toString(36)
-      // console.log("--->", mobCnt, ':', id)
-      const tileId = spawnPointList[0]
-      const payload = {id, data: {tileId}}
+      const spawnPointId = Math.floor(Math.random() * spawnPointList.length)
+      const mobId = nanoid()
+      const payload = {id: mobId, data: {tileId: spawnPointList[spawnPointId]}}
       dispatch({type: Actions.CreateMob, payload})
     }
   }

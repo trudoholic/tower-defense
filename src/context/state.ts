@@ -17,7 +17,7 @@ export interface IState {
 export const defaultState: IState = {
   count: 0,
   destinationList: [Math.floor(ROWS * COLS / 2)],
-  spawnPointList: [],
+  spawnPointList: [0, COLS - 1, (ROWS - 1) * COLS, ROWS * COLS - 1],
   wallList: [],
 
   mobData: new Map<string, IMob>(),

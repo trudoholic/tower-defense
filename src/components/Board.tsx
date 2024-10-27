@@ -5,7 +5,7 @@ import {ROWS, COLS} from "../hooks/utils"
 
 import Arrows from "./prefabs/Arrows"
 import Destinations from "./prefabs/Destinations"
-import Mobs from "./prefabs/Mobs"
+// import Mobs from "./prefabs/Mobs"
 import SpawnPoints from "./prefabs/SpawnPoints"
 import Tiles from "./prefabs/Tiles"
 import Walls from "./prefabs/Walls"
@@ -29,7 +29,7 @@ export function Board() {
         <Destinations/>
         <SpawnPoints/>
         <Walls/>
-        <Mobs/>
+        {/*<Mobs/>*/}
         <TestList/>
       </Suspense>
     </>

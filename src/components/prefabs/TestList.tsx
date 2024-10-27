@@ -3,20 +3,23 @@ import TestBox from "./TestBox"
 
 export function TestList() {
   const {
-    // mobData,
+    mobData,
     mobList,
   } = useGame()
-  console.log(mobList)
+
+  // console.log(mobData)
+  // console.log(mobList)
+  // mobList.forEach((mobId, idx) => console.log(idx, mobId, mobData.get(mobId).tileId))
 
   return (
     <>
       {
-        mobList.map(id => (
+        mobList.map(mobId => (
           <TestBox
-            key={id}
+            key={mobId}
             modelScale={.25}
             speed={2}
-            tileId={id}
+            tileId={mobData.get(mobId).tileId}
           />
         ))
       }

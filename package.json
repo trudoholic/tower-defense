@@ -15,6 +15,7 @@
     "@react-three/fiber": "^8.17.9",
     "@types/three": "^0.169.0",
     "leva": "^0.9.35",
+    "nanoid": "^5.0.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "three": "^0.169.0"
