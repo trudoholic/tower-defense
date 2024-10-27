@@ -1,6 +1,7 @@
 import {useState} from "react"
 import {a, useSpring} from "@react-spring/three"
 import {Edges} from "@react-three/drei"
+import {red} from "../colors"
 import {offset, RC} from "../../hooks/utils"
 import useGame from "../../hooks/useGame"
 
@@ -54,7 +55,7 @@ export function TestBox(props) {
           {/*<cylinderGeometry args={[1, 1, 2, 6]} />*/}
           <coneGeometry args={[1, 2, 6]} />
 
-          <meshStandardMaterial color={"orange"} fog={false} />
+          <meshStandardMaterial color={red[900]} fog={false} />
           <Edges color={"white"} linewidth={.5} />
         </mesh>
       </a.group>
