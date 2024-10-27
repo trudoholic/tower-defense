@@ -9,7 +9,7 @@ import Mobs from "./prefabs/Mobs"
 import SpawnPoints from "./prefabs/SpawnPoints"
 import Tiles from "./prefabs/Tiles"
 import Walls from "./prefabs/Walls"
-import TestBox from "./prefabs/TestBox"
+import TestList from "./prefabs/TestList"
 
 export function Board() {
   const { showPaths } = useControls({
@@ -30,21 +30,7 @@ export function Board() {
         <SpawnPoints/>
         <Walls/>
         <Mobs/>
-        <TestBox
-          modelScale={.5}
-          speed={2}
-          tileId={0}
-        />
-        <TestBox
-          modelScale={.25}
-          speed={1.5}
-          tileId={33}
-        />
-        <TestBox
-          modelScale={.125}
-          speed={1}
-          tileId={66}
-        />
+        <TestList/>
       </Suspense>
     </>
   )

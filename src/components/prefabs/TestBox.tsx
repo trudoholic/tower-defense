@@ -2,13 +2,15 @@ import {useState} from "react"
 import {a, useSpring} from "@react-spring/three"
 import {Edges} from "@react-three/drei"
 import {offset, RC} from "../../hooks/utils"
-// import useGame from "../../hooks/useGame"
+import useGame from "../../hooks/useGame"
 
 const initScale = .01, initState = { n: 0, x: 0, z: 0, scale: initScale }
 
 export function TestBox(props) {
   const {modelScale, speed, tileId} = props
   const rc = RC(tileId)
+
+  const {dropMob} = useGame()
 
   const [state, setState] = useState({ ...initState, scale: 1 })
 
@@ -22,7 +24,10 @@ export function TestBox(props) {
         ...t, n: t.n + 1, x: t.x + (t.n % 2), z: t.z + ((t.n + 1) % 2)
       }))
       else if (state.scale === 1) setState(t => ({...t, scale: initScale}))
-      else console.log('END')
+      else {
+        dropMob(tileId)
+        console.log('END: ' + tileId)
+      }
     }
   })
 
@@ -39,17 +44,15 @@ export function TestBox(props) {
       >
         <mesh
           name={"TestBox"}
+          position-y={modelScale}
+          rotation-x={-Math.PI / 2}
           scale={[modelScale, modelScale, modelScale]}
           castShadow={true}
           receiveShadow={true}
         >
           {/*<boxGeometry />*/}
-
-          <cylinderGeometry args={[1, 1, 2, 6]} />
-          {/* radiusTop:1, radiusBottom:1, height:1, radialSegments:32 */}
-
-          {/*<coneGeometry args={[1, 2, 6]} />*/}
-          {/* radius:1, height:1, radialSegments:32 */}
+          {/*<cylinderGeometry args={[1, 1, 2, 6]} />*/}
+          <coneGeometry args={[1, 2, 6]} />
 
           <meshStandardMaterial color={"orange"} fog={false} />
           <Edges color={"white"} linewidth={.5} />

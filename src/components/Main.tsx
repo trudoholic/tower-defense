@@ -7,6 +7,7 @@ import Game from './Game'
 const Main = () => {
   const {
     count,
+    mobList,
 
     incCount,
     decCount,
@@ -55,7 +56,7 @@ const Main = () => {
         </button>
         <button onClick={() => {
           decCount(1)
-          dropMob()
+          if (mobList.length) { dropMob(mobList[0]) }
         }}>
           -
         </button>

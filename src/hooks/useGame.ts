@@ -94,18 +94,15 @@ const useGame = () => {
   const createMob = () => {
     if (spawnPointList.length) {
       const id = (++mobCnt).toString(36)
-      console.log("--->", mobCnt, ':', id)
+      // console.log("--->", mobCnt, ':', id)
       const tileId = spawnPointList[0]
       const payload = {id, data: {tileId}}
       dispatch({type: Actions.CreateMob, payload})
     }
   }
 
-  const dropMob = () => {
-    if (mobList.length) {
-      const mobId = mobList[0]
-      dispatch({type: Actions.DropMob, payload: mobId})
-    }
+  const dropMob = (mobId: string) => {
+    dispatch({type: Actions.DropMob, payload: mobId})
   }
 
   //-----------------------------------------------------------------
