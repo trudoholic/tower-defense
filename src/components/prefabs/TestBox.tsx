@@ -1,17 +1,21 @@
 import {useState} from "react"
 import {a, useSpring} from "@react-spring/three"
 import {Edges} from "@react-three/drei"
-import {offset} from "../../hooks/utils"
+import {offset, RC} from "../../hooks/utils"
+// import useGame from "../../hooks/useGame"
 
 const initScale = .01, initState = { n: 0, x: 0, z: 0, scale: initScale }
 
-export function TestBox() {
+export function TestBox(props) {
+  const {modelScale, speed, tileId} = props
+  const rc = RC(tileId)
+
   const [state, setState] = useState({ ...initState, scale: 1 })
 
   const {x, z, scale} = useSpring({
     from: initState,
     to: state,
-    config: {duration: 500},
+    config: {duration: 1000 / speed},
     onRest: () => {
       // console.log('#', state.n)
       if (state.n < 10) setState(t => ({
@@ -23,7 +27,7 @@ export function TestBox() {
   })
 
   return (
-    <group position={[3-offset.x, 0, 3-offset.y]}>
+    <group position={[rc[1] - offset.x, 0, rc[0] - offset.y]}>
       <a.group
         position-x={x}
         position-y={0}
@@ -35,7 +39,7 @@ export function TestBox() {
       >
         <mesh
           name={"TestBox"}
-          scale={[.5, .5, .5]}
+          scale={[modelScale, modelScale, modelScale]}
           castShadow={true}
           receiveShadow={true}
         >

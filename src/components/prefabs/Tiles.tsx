@@ -17,18 +17,19 @@ function Tiles() {
 
   const handleClick = (e: ThreeEvent<MouseEvent>, rightClick: boolean) => {
     e.nativeEvent.preventDefault()
-    const [row, col] = RC(e.instanceId)
-    console.log(`R${row}C${col}`)
+    const id = +e.instanceId
+    const [row, col] = RC(id)
+    console.log(`(${id}) R${row}C${col}`)
     if (e.nativeEvent.ctrlKey) {
       if (rightClick) {
-        toggleDestination(+e.instanceId)
+        toggleDestination(id)
       } else {
-        toggleWall(+e.instanceId)
+        toggleWall(id)
       }
     }
     else if (e.nativeEvent.shiftKey) {
       if (rightClick) {
-        toggleSpawnPoint(+e.instanceId)
+        toggleSpawnPoint(id)
       }
     }
   }

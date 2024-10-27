@@ -30,7 +30,21 @@ export function Board() {
         <SpawnPoints/>
         <Walls/>
         <Mobs/>
-        <TestBox/>
+        <TestBox
+          modelScale={.5}
+          speed={2}
+          tileId={0}
+        />
+        <TestBox
+          modelScale={.25}
+          speed={1.5}
+          tileId={33}
+        />
+        <TestBox
+          modelScale={.125}
+          speed={1}
+          tileId={66}
+        />
       </Suspense>
     </>
   )
