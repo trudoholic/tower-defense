@@ -36,7 +36,7 @@ const useGame = () => {
   const isSpawnPoint = (row: number, col: number) => "Tile.SpawnPoint" === at(row, col)?.content
   const isWall = (row: number, col: number) => "Tile.Wall" === at(row, col)?.content
 
-  // const next = (id: number) => tiles[id]?.next ?? -1
+  const next = (id: number) => tiles[id]?.next ?? -1
   const tileAt = (id: number) => tiles[id]
 
   //-----------------------------------------------------------------
@@ -128,7 +128,7 @@ const useGame = () => {
     isDestination,
     isSpawnPoint,
     isWall,
-    // next,
+    next,
     tileAt,
     toggleDestination,
     toggleSpawnPoint,
