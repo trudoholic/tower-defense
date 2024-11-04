@@ -5,7 +5,8 @@ import {red} from "../colors"
 import {offset, RC} from "../../hooks/utils"
 import useGame from "../../hooks/useGame"
 
-const initScale = .01, initState = { n: 0, x: 0, z: 0, scale: initScale }
+const initScale = .01
+const initState = { done: false, n: 0, x: 0, z: 0, scale: initScale }
 
 export function TestBox(props) {
   const {modelScale, speed, tileId} = props
@@ -14,17 +15,22 @@ export function TestBox(props) {
   const {dropMob} = useGame()
 
   const [state, setState] = useState({ ...initState, scale: 1 })
+  const getState = () => ({
+    done: state.n >= 10,
+    n: state.n + 1,
+    x: state.x + (state.n % 2),
+    z: state.z + ((state.n + 1) % 2),
+    scale: 1,
+  })
 
   const {x, z, scale} = useSpring({
     from: initState,
     to: state,
     config: {duration: 1000 / speed},
     onRest: () => {
-      // console.log('#', state.n)
-      if (state.n < 10) setState(t => ({
-        ...t, n: t.n + 1, x: t.x + (t.n % 2), z: t.z + ((t.n + 1) % 2)
-      }))
-      else if (state.scale === 1) setState(t => ({...t, scale: initScale}))
+      const nextState = getState()
+      if (!nextState.done) setState(nextState)
+      else if (1 === state.scale) setState({...state, scale: initScale})
       else {
         dropMob(tileId)
         console.log('END: ' + tileId)
