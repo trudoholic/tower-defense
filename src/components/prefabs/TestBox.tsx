@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useRef, useState} from "react"
 import {a, useSpring} from "@react-spring/three"
 import {Edges} from "@react-three/drei"
 import {red} from "../colors"
@@ -6,20 +6,20 @@ import {offset, RC} from "../../hooks/utils"
 import useGame from "../../hooks/useGame"
 
 const initScale = .01
-const initState = { done: false, n: 0, x: 0, z: 0, scale: initScale }
+const initState = { done: false, x: 0, z: 0, scale: initScale }
 
 export function TestBox(props) {
   const {modelScale, speed, tileId} = props
   const rc = RC(tileId)
 
-  const {dropMob} = useGame()
+  const {dropMob, next, tileAt} = useGame()
+  const nextId = useRef(tileId)
 
   const [state, setState] = useState({ ...initState, scale: 1 })
-  const getState = () => ({
-    done: state.n >= 10,
-    n: state.n + 1,
-    x: state.x + (state.n % 2),
-    z: state.z + ((state.n + 1) % 2),
+  const getState = (direction: number) => ({
+    done: direction < 0,
+    x: state.x + (direction < 0? 0: [0,1,0,-1][direction]),
+    z: state.z + (direction < 0? 0: [-1,0,1,0][direction]),
     scale: 1,
   })
 
@@ -28,8 +28,11 @@ export function TestBox(props) {
     to: state,
     config: {duration: 1000 / speed},
     onRest: () => {
-      const nextState = getState()
-      if (!nextState.done) setState(nextState)
+      const nextState = getState(tileAt(nextId.current).direction)
+      if (!nextState.done) {
+        setState(nextState)
+        nextId.current = next(nextId.current)
+      }
       else if (1 === state.scale) setState({...state, scale: initScale})
       else {
         dropMob(tileId)
