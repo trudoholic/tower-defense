@@ -14,6 +14,7 @@ export function TestBox(props) {
 
   const {dropMob, next, tileAt} = useGame()
   const nextId = useRef(tileId)
+  const rot = useRef(0)
 
   const [state, setState] = useState({ ...initState, scale: 1 })
   const getState = (direction: number) => ({
@@ -28,7 +29,9 @@ export function TestBox(props) {
     to: state,
     config: {duration: 1000 / speed},
     onRest: () => {
-      const nextState = getState(tileAt(nextId.current).direction)
+      const direction = tileAt(nextId.current).direction
+      rot.current = -Math.PI / 2 * direction
+      const nextState = getState(direction)
       if (!nextState.done) {
         setState(nextState)
         nextId.current = next(nextId.current)
@@ -56,6 +59,7 @@ export function TestBox(props) {
           name={"TestBox"}
           position-y={modelScale}
           rotation-x={-Math.PI / 2}
+          rotation-z={rot.current}
           scale={[modelScale, modelScale, modelScale]}
           castShadow={true}
           receiveShadow={true}
